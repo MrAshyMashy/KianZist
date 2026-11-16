@@ -32,7 +32,7 @@ const ProductsComponent = () => {
       )}
 
       <MainWrapper>
-        {/* <PageSection isFirst>
+        <PageSection isFirst>
           <Hero data={data} />
         </PageSection>
 
@@ -66,7 +66,7 @@ const ProductsComponent = () => {
           <PageSection>
             <PilotTrialForm data={data.pilotForm} lang={lang} />
           </PageSection>
-        )} */}
+        )}
       </MainWrapper>
     </div>
   );

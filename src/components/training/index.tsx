@@ -32,7 +32,7 @@ const TrainingComponent = () => {
       )}
 
       <MainWrapper>
-        {/* <PageSection isFirst>
+        <PageSection isFirst>
           <Hero data={data.hero} lang={lang} />
         </PageSection>
 
@@ -58,7 +58,7 @@ const TrainingComponent = () => {
 
         <PageSection>
           <CTA data={data.cta} lang={lang} />
-        </PageSection> */}
+        </PageSection>
       </MainWrapper>
     </div>
   );

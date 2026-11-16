@@ -31,7 +31,6 @@ const PublicationsComponent = () => {
       )}
 
       <MainWrapper>
-        {/* 
         <PageSection isFirst>
           <PublicationsHero data={data} lang={lang} />
         </PageSection>
@@ -70,7 +69,6 @@ const PublicationsComponent = () => {
             }
           />
         </PageSection>
-      */}
       </MainWrapper>
     </div>
   );
