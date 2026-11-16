@@ -1,0 +1,651 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   FONTS
+========================================================= */
+/* --- Space Grotesk (English / Latin) --- */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/SpaceGrotesk-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/SpaceGrotesk-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/SpaceGrotesk-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/SpaceGrotesk-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/SpaceGrotesk-Bold.ttf") format("truetype");
+}
+
+/* --- Yekan Bakh (Persian - SemiBold & Bold) --- */
+@font-face {
+  font-family: "Yekan Bakh";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/YekanBakh-SemiBold.ttf") format("truetype");
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+1EE00-1EEFF;
+}
+@font-face {
+  font-family: "Yekan Bakh";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/YekanBakh-Bold.ttf") format("truetype");
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+1EE00-1EEFF;
+}
+
+/* --- Yekan (Persian - Light, Regular, Medium) --- */
+@font-face {
+  font-family: "Yekan";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/Yekan-Light.ttf") format("truetype");
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+1EE00-1EEFF;
+}
+@font-face {
+  font-family: "Yekan";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Yekan-Regular.ttf") format("truetype");
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+1EE00-1EEFF;
+}
+@font-face {
+  font-family: "Yekan";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/Yekan-Medium.ttf") format("truetype");
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+1EE00-1EEFF;
+}
+
+/* --- Yekan Bakh family: light/regular/medium mapped to Yekan files --- */
+@font-face {
+  font-family: "Yekan Bakh";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/Yekan-Light.ttf") format("truetype");
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+1EE00-1EEFF;
+}
+@font-face {
+  font-family: "Yekan Bakh";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Yekan-Regular.ttf") format("truetype");
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+1EE00-1EEFF;
+}
+@font-face {
+  font-family: "Yekan Bakh";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/Yekan-Medium.ttf") format("truetype");
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+1EE00-1EEFF;
+}
+@font-face {
+  font-family: "Yekan Bakh";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/Yekan-ExtraBold.ttf") format("truetype");
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+1EE00-1EEFF;
+}
+
+/* =========================================================
+   DESIGN TOKENS  (v3 — "Soft Depth")
+   ---------------------------------------------------------
+   Principles
+   • DARK  : deep teal-slate (NOT near-black). Surfaces step up in
+             small, even increments so cards are always visible.
+   • LIGHT : neutral-mint canvas, pure white cards, hairline borders,
+             ultra-soft neutral shadows (no green-tinted halos).
+   • One border opacity, one shadow scale, one radius scale
+     for both themes → consistency.
+========================================================= */
+
+/* ---------------------- FLUID (height-aware) TOKENS ----------------------
+   Everything scales with the viewport HEIGHT so short laptop screens
+   (browser chrome eats ~150px) get compact UI automatically. */
+:root {
+  --kz-nav-h: 4rem;
+
+  --kz-sec-gap: clamp(1rem, 3.6vh, 2.75rem); /* header -> content */
+  --kz-grid-gap: clamp(0.75rem, 2.2vh, 1.5rem); /* between cards */
+  --kz-card-pad: clamp(0.9rem, 2.4vh, 1.75rem); /* inside cards */
+  --kz-block-gap: clamp(0.6rem, 1.8vh, 1.25rem);
+
+  /* ---- Typography scale: MOBILE (< 640px) — width-driven ---- */
+  --kz-fs-display: clamp(19px, calc(13px + 1.6vw), 22px);
+  --kz-fs-hero: clamp(18px, calc(12px + 1.5vw), 20px);
+  --kz-fs-section: clamp(16.5px, calc(11px + 1.3vw), 18.5px);
+  --kz-fs-metric: clamp(17px, calc(11px + 1.4vw), 20px);
+  --kz-fs-stat: clamp(14px, calc(9px + 1vw), 16px);
+  --kz-fs-card: clamp(14px, calc(10px + 0.8vw), 15.5px);
+  --kz-fs-lead: clamp(14px, calc(11px + 0.7vw), 15px);
+  --kz-fs-body: clamp(13px, calc(10px + 0.6vw), 14.5px);
+  --kz-fs-body-md: clamp(12.5px, calc(9.5px + 0.6vw), 14px);
+  --kz-fs-label: clamp(12px, calc(9px + 0.5vw), 13px);
+  --kz-fs-button: clamp(12.5px, calc(9.5px + 0.5vw), 13.5px);
+  --kz-fs-caption: clamp(11.5px, calc(9px + 0.4vw), 12.5px);
+  --kz-fs-tiny: clamp(11px, calc(9px + 0.3vw), 11.5px);
+  --kz-fs-quote: clamp(14.5px, calc(10.5px + 0.8vw), 17px);
+}
+
+/* ---- Typography scale: TABLET (640px – 1023px) — width-driven ---- */
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  :root {
+    --kz-fs-display: clamp(21.5px, calc(14px + 1vw), 23.5px);
+    --kz-fs-hero: clamp(20px, calc(13px + 0.9vw), 22px);
+    --kz-fs-section: clamp(18px, calc(11.5px + 0.9vw), 20px);
+    --kz-fs-metric: clamp(18px, calc(11px + 1vw), 21px);
+    --kz-fs-stat: clamp(15px, calc(9.5px + 0.7vw), 17px);
+    --kz-fs-card: clamp(14.5px, calc(10.5px + 0.6vw), 16px);
+    --kz-fs-lead: clamp(14.5px, calc(11px + 0.5vw), 15.5px);
+    --kz-fs-body: clamp(13.5px, calc(10px + 0.5vw), 14.5px);
+    --kz-fs-body-md: clamp(13px, calc(9.5px + 0.5vw), 14px);
+    --kz-fs-label: clamp(12.5px, calc(9px + 0.4vw), 13.5px);
+    --kz-fs-button: clamp(13px, calc(9.5px + 0.4vw), 14px);
+    --kz-fs-caption: clamp(12px, calc(9px + 0.35vw), 12.5px);
+    --kz-fs-tiny: clamp(11px, calc(9px + 0.25vw), 12px);
+    --kz-fs-quote: clamp(15.5px, calc(11px + 0.7vw), 18px);
+  }
+}
+
+/* ---- Typography scale: DESKTOP / SURFACE / LAPTOP (>= 1024px) — height-driven (unchanged) ---- */
+@media (min-width: 1024px) {
+  :root {
+    --kz-fs-display: clamp(
+      22px,
+      calc(12px + 1.3vh),
+      25px
+    ); /* Changed max from 28px to 26px */
+    --kz-fs-hero: clamp(20px, calc(11px + 1.2vh), 24px);
+    --kz-fs-section: clamp(
+      18px,
+      calc(10px + 1.1vh),
+      21.5px
+    ); /* Changed max from 23px to 21.5px */
+    --kz-fs-metric: clamp(18px, calc(9px + 1.2vh), 24px);
+    --kz-fs-stat: clamp(15px, calc(8px + 0.9vh), 18px);
+    --kz-fs-card: clamp(14.5px, calc(9px + 0.7vh), 17px);
+    --kz-fs-lead: clamp(14.5px, calc(10px + 0.55vh), 16px);
+    --kz-fs-body: clamp(13.5px, calc(9.5px + 0.5vh), 15px);
+    --kz-fs-body-md: clamp(13px, calc(9px + 0.5vh), 14.5px);
+    --kz-fs-label: clamp(12.5px, calc(8.5px + 0.45vh), 14px);
+    --kz-fs-button: clamp(13px, calc(9px + 0.45vh), 14.5px);
+    --kz-fs-caption: clamp(11.5px, calc(8px + 0.4vh), 13px);
+    --kz-fs-tiny: clamp(11px, calc(8.5px + 0.3vh), 12px);
+    --kz-fs-quote: clamp(15px, calc(10px + 0.7vh), 19px);
+  }
+}
+@media (min-width: 640px) {
+  :root {
+    --kz-nav-h: 5rem;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --kz-nav-h: 5.5rem;
+  }
+}
+
+/* Home snap sections (desktop). First section clears the navbar,
+   the rest use the full viewport because the navbar slides away. */
+@media (min-width: 1024px) {
+  .kz-home-first {
+    padding-top: calc(var(--kz-nav-h) + clamp(0.5rem, 2vh, 1.25rem));
+    padding-bottom: clamp(3.25rem, 8vh, 4.75rem); /* room for scroll hint */
+  }
+  .kz-home-rest {
+    padding-top: clamp(1rem, 3.5vh, 2.5rem);
+    padding-bottom: clamp(1rem, 3.5vh, 2.5rem);
+  }
+}
+
+/* ---------------------- LIGHT (default) ---------------------- */
+:root {
+  color-scheme: light;
+  --font-sans:
+    "Space Grotesk", "Yekan Bakh", "Yekan", ui-sans-serif, system-ui, sans-serif;
+
+  /* Surfaces */
+  --kz-c-bg-body: 243 249 247; /* #f3f9f7 */
+  --kz-c-bg-surface: 255 255 255;
+  --kz-c-bg-elevated: 255 255 255;
+  --kz-c-bg-sunken: 233 242 239; /* #e9f2ef */
+
+  /* Text */
+  --kz-c-heading: 8 40 31; /* #08281f */
+  --kz-c-body: 49 74 67; /* #314a43 */
+  --kz-c-muted: 82 108 100; /* #526c64 */
+  --kz-c-subtle: 112 136 129; /* #708881 */
+  --kz-c-inverted: 255 255 255;
+
+  /* Borders */
+  --kz-c-border-main: 217 230 226; /* #d9e6e2 */
+  --kz-c-border-subtle: 235 243 240; /* #ebf3f0 */
+  --kz-c-border-strong: 168 195 187; /* #a8c3bb */
+
+  /* GREEN family */
+  --kz-c-primary: 13 101 85;
+  --kz-c-primary-hover: 9 76 64;
+  --kz-c-on-primary: 255 255 255;
+  --kz-c-accent: 10 127 106;
+  --kz-c-accent-hover: 8 104 85;
+  --kz-c-pistachio: 124 176 80;
+  --kz-c-pistachio-text: 74 110 36;
+
+  /* BLUE family */
+  --kz-c-secondary: 0 102 204;
+  --kz-c-secondary-hover: 0 76 153;
+  --kz-c-blue-deep: 11 74 160;
+  --kz-c-blue-soft: 96 165 240;
+
+  /* Icons */
+  --kz-c-icon-primary: 10 127 106;
+  --kz-c-icon-secondary: 0 102 204;
+  --kz-c-icon-pistachio: 95 145 57;
+
+  /* Over-photo colors (identical in both themes) */
+  --kz-c-media-text: 255 255 255;
+  --kz-c-media-accent: 39 215 166;
+  --kz-c-media-blue: 56 182 255;
+
+  /* Status */
+  --kz-c-success: 5 150 105;
+  --kz-c-warning: 217 119 6;
+  --kz-c-danger: 220 38 38;
+  --kz-c-info: 37 99 235;
+
+  /* ---- Radius scale (shared) ---- */
+  --kz-radius-sm: 10px;
+  --kz-radius-md: 14px;
+  --kz-radius-lg: 20px;
+  --kz-radius-xl: 28px;
+
+  /* ---- Composite values ---- */
+  --kz-bg-glass: rgb(var(--kz-c-bg-body) / 0.8);
+  --kz-brand-faint: rgb(var(--kz-c-accent) / 0.07);
+
+  --kz-border-brand: rgb(var(--kz-c-accent) / 0.28);
+  --kz-border-secondary: rgb(var(--kz-c-secondary) / 0.28);
+
+  --kz-button-secondary-bg: rgb(var(--kz-c-secondary) / 0.07);
+  --kz-button-secondary-border: rgb(var(--kz-c-secondary) / 0.32);
+  --kz-button-ghost-hover: rgb(var(--kz-c-accent) / 0.06);
+
+  /* Neutral, soft shadows (no green cast) */
+  --kz-card-shadow:
+    0 1px 2px rgb(var(--kz-c-heading) / 0.04),
+    0 8px 24px -12px rgb(var(--kz-c-heading) / 0.12);
+
+  --kz-effects-glow-primary: 0 8px 24px -8px rgb(var(--kz-c-accent) / 0.3);
+  --kz-effects-glow-secondary: 0 8px 24px -8px rgb(var(--kz-c-secondary) / 0.28);
+  --kz-effects-overlay: rgba(8, 40, 31, 0.4);
+  --kz-effects-grid-line: rgb(var(--kz-c-accent) / 0.04);
+  --kz-effects-selection: rgb(var(--kz-c-accent) / 0.18);
+  --kz-effects-aurora-primary: rgb(var(--kz-c-accent) / 0.08);
+  --kz-effects-aurora-secondary: rgb(var(--kz-c-secondary) / 0.08);
+  --kz-effects-molecule-bond: rgb(var(--kz-c-accent) / 0.2);
+
+  --kz-shadow-accent: 0 8px 24px -8px rgb(var(--kz-c-accent) / 0.32);
+  --kz-shadow-blue: 0 8px 24px -8px rgb(var(--kz-c-secondary) / 0.3);
+  --kz-shadow-pistachio: 0 8px 24px -8px rgb(var(--kz-c-pistachio) / 0.38);
+  --kz-shadow-inner: inset 0 1px 2px rgb(var(--kz-c-heading) / 0.06);
+  --kz-drop-accent: 0 2px 8px rgb(var(--kz-c-accent) / 0.18);
+  --kz-drop-blue: 0 2px 8px rgb(var(--kz-c-secondary) / 0.18);
+  --kz-drop-pistachio: 0 2px 8px rgb(var(--kz-c-pistachio) / 0.25);
+
+  --kz-status-success-bg: rgb(var(--kz-c-success) / 0.1);
+  --kz-status-warning-bg: rgb(var(--kz-c-warning) / 0.1);
+  --kz-status-danger-bg: rgb(var(--kz-c-danger) / 0.1);
+  --kz-status-info-bg: rgb(var(--kz-c-info) / 0.1);
+}
+
+/* ---------------------- DARK ---------------------- */
+.dark {
+  color-scheme: dark;
+
+  /* Deep teal-slate — lifted well above black */
+  --kz-c-bg-body: 11 22 28; /* #0b161c */
+  --kz-c-bg-surface: 16 31 39; /* #101f27 */
+  --kz-c-bg-elevated: 22 41 51; /* #162933 */
+  --kz-c-bg-sunken: 8 17 22; /* #081116 */
+
+  --kz-c-heading: 238 247 244; /* #eef7f4 */
+  --kz-c-body: 182 205 199; /* #b6cdc7 */
+  --kz-c-muted: 146 172 165; /* #92aca5 */
+  --kz-c-subtle: 112 139 132; /* #708b84 */
+  --kz-c-inverted: 11 22 28;
+
+  --kz-c-border-main: 38 64 75; /* #26404b */
+  --kz-c-border-subtle: 26 47 57; /* #1a2f39 */
+  --kz-c-border-strong: 60 98 112; /* #3c6270 */
+
+  /* GREEN family */
+  --kz-c-primary: 45 212 168; /* #2dd4a8 */
+  --kz-c-primary-hover: 94 234 198;
+  --kz-c-on-primary: 8 24 28;
+  --kz-c-accent: 45 212 168;
+  --kz-c-accent-hover: 94 234 198;
+  --kz-c-pistachio: 176 222 140;
+  --kz-c-pistachio-text: 176 222 140;
+
+  /* BLUE family */
+  --kz-c-secondary: 56 168 255; /* #38a8ff */
+  --kz-c-secondary-hover: 110 192 255;
+  --kz-c-blue-deep: 22 100 196;
+  --kz-c-blue-soft: 140 202 255;
+
+  /* Icons */
+  --kz-c-icon-primary: 45 212 168;
+  --kz-c-icon-secondary: 56 168 255;
+  --kz-c-icon-pistachio: 176 222 140;
+
+  --kz-c-success: 52 211 153;
+  --kz-c-warning: 251 191 36;
+  --kz-c-danger: 248 113 113;
+  --kz-c-info: 56 168 255;
+
+  --kz-bg-glass: rgb(var(--kz-c-bg-body) / 0.72);
+  --kz-brand-faint: rgb(var(--kz-c-accent) / 0.1);
+
+  --kz-border-brand: rgb(var(--kz-c-accent) / 0.32);
+  --kz-border-secondary: rgb(var(--kz-c-secondary) / 0.32);
+
+  --kz-button-secondary-bg: rgb(var(--kz-c-secondary) / 0.12);
+  --kz-button-secondary-border: rgb(var(--kz-c-secondary) / 0.45);
+  --kz-button-ghost-hover: rgba(255, 255, 255, 0.06);
+
+  --kz-card-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.03) inset,
+    0 10px 30px -14px rgba(0, 0, 0, 0.55);
+
+  --kz-effects-glow-primary: 0 0 24px rgb(var(--kz-c-accent) / 0.2);
+  --kz-effects-glow-secondary: 0 0 24px rgb(var(--kz-c-secondary) / 0.24);
+  --kz-effects-overlay: rgba(4, 10, 14, 0.7);
+  --kz-effects-grid-line: rgb(var(--kz-c-accent) / 0.05);
+  --kz-effects-selection: rgb(var(--kz-c-accent) / 0.3);
+  --kz-effects-aurora-primary: rgb(var(--kz-c-accent) / 0.1);
+  --kz-effects-aurora-secondary: rgb(var(--kz-c-secondary) / 0.1);
+  --kz-effects-molecule-bond: rgb(var(--kz-c-secondary) / 0.2);
+
+  --kz-shadow-accent: 0 0 22px rgb(var(--kz-c-accent) / 0.32);
+  --kz-shadow-blue: 0 0 22px rgb(var(--kz-c-secondary) / 0.32);
+  --kz-shadow-pistachio: 0 0 22px rgb(var(--kz-c-pistachio) / 0.28);
+  --kz-shadow-inner: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+  --kz-drop-accent: 0 0 12px rgb(var(--kz-c-accent) / 0.38);
+  --kz-drop-blue: 0 0 12px rgb(var(--kz-c-secondary) / 0.38);
+  --kz-drop-pistachio: 0 0 12px rgb(var(--kz-c-pistachio) / 0.34);
+
+  --kz-status-success-bg: rgb(var(--kz-c-success) / 0.15);
+  --kz-status-warning-bg: rgb(var(--kz-c-warning) / 0.15);
+  --kz-status-danger-bg: rgb(var(--kz-c-danger) / 0.15);
+  --kz-status-info-bg: rgb(var(--kz-c-info) / 0.15);
+}
+
+/* ---------------------- LEGACY ALIASES (derived) ---------------------- */
+:root,
+.dark {
+  --kz-bg-body: rgb(var(--kz-c-bg-body));
+  --kz-bg-surface: rgb(var(--kz-c-bg-surface));
+  --kz-bg-elevated: rgb(var(--kz-c-bg-elevated));
+  --kz-bg-sunken: rgb(var(--kz-c-bg-sunken));
+
+  --kz-brand-primary: rgb(var(--kz-c-primary));
+  --kz-brand-primary-hover: rgb(var(--kz-c-primary-hover));
+  --kz-brand-primary-text: rgb(var(--kz-c-on-primary));
+  --kz-brand-secondary: rgb(var(--kz-c-secondary));
+  --kz-brand-secondary-hover: rgb(var(--kz-c-secondary-hover));
+  --kz-brand-accent: rgb(var(--kz-c-accent));
+  --kz-brand-accent-hover: rgb(var(--kz-c-accent-hover));
+  --kz-brand-pistachio: rgb(var(--kz-c-pistachio));
+
+  --kz-text-heading: rgb(var(--kz-c-heading));
+  --kz-text-body: rgb(var(--kz-c-body));
+  --kz-text-muted: rgb(var(--kz-c-muted));
+  --kz-text-subtle: rgb(var(--kz-c-subtle));
+  --kz-text-inverted: rgb(var(--kz-c-inverted));
+  --kz-text-brand: rgb(var(--kz-c-accent));
+  --kz-text-secondary: rgb(var(--kz-c-secondary));
+
+  --kz-border-main: rgb(var(--kz-c-border-main));
+  --kz-border-subtle: rgb(var(--kz-c-border-subtle));
+  --kz-border-strong: rgb(var(--kz-c-border-strong));
+
+  --kz-button-primary-bg: rgb(var(--kz-c-primary));
+  --kz-button-primary-hover: rgb(var(--kz-c-primary-hover));
+  --kz-button-primary-text: rgb(var(--kz-c-on-primary));
+  --kz-button-secondary-text: rgb(var(--kz-c-secondary));
+
+  --kz-input-bg: rgb(var(--kz-c-bg-surface));
+  --kz-input-border: rgb(var(--kz-c-border-main));
+  --kz-input-focus-ring: rgb(var(--kz-c-accent));
+  --kz-input-placeholder: rgb(var(--kz-c-subtle));
+
+  --kz-card-bg: rgb(var(--kz-c-bg-surface));
+  --kz-card-border: rgb(var(--kz-c-border-main));
+  --kz-card-hover-border: rgb(var(--kz-c-border-strong));
+
+  --kz-status-success: rgb(var(--kz-c-success));
+  --kz-status-warning: rgb(var(--kz-c-warning));
+  --kz-status-danger: rgb(var(--kz-c-danger));
+  --kz-status-info: rgb(var(--kz-c-info));
+}
+
+/* =========================================================
+   HTML / BODY
+========================================================= */
+html,
+body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--kz-bg-body);
+  color: var(--kz-text-body);
+  font-feature-settings: "ss01", "ss02", "cv01", "cv11";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* =========================================================
+   GLOBAL FALLBACKS & BIDI
+========================================================= */
+*,
+*::before,
+*::after {
+  font-family: inherit;
+  box-sizing: border-box;
+  border-color: var(--kz-border-main);
+}
+
+[dir="rtl"] *,
+[dir="rtl"] *::before,
+[dir="rtl"] *::after,
+:lang(fa) *,
+:lang(fa) *::before,
+:lang(fa) *::after {
+  letter-spacing: normal !important;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+  unicode-bidi: plaintext;
+  text-align: start;
+}
+
+::selection {
+  background: var(--kz-effects-selection);
+  color: var(--kz-text-heading);
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--kz-c-accent) / 0.7);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   CUSTOM SCROLLBAR
+========================================================= */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--kz-bg-body);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--kz-border-main);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--kz-border-strong);
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================================
+   LAYOUT SPACING UTILITIES (Responsive & Fluid)
+========================================================= */
+@layer utilities {
+  .kz-spacing-first {
+    padding-top: clamp(4rem, 8vh, 6rem);
+    padding-bottom: clamp(2rem, 4vh, 4rem);
+  }
+  .kz-spacing-section {
+    padding-top: clamp(2rem, 4vh, 3.5rem);
+    padding-bottom: clamp(2rem, 4vh, 3.5rem);
+  }
+  .kz-spacing-inner {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3vh, 2.5rem);
+  }
+}
+
+/* ───────────────────────────────────────────────────────────
+   Home performance layer
+   ─────────────────────────────────────────────────────────── */
+
+/* 1) Desktop snap sections: the browser skips layout/paint/backdrop-blur for
+      sections that are far from the viewport. Sections are lg:h-dvh, so the
+      reserved size is exact → no scroll jumps. Used by HomeSection (.kz-cv).
+
+      IMPORTANT: `content-visibility: auto` implies `contain: paint`, which CLIPS
+      everything that paints outside the section box (TiltCard rotate / scale /
+      perspective, glow, box-shadow). Cards sit flush against the section edge,
+      so their corners were being cut off while hovering.
+      Fix: keep the skipping only while the section is OFF-screen. As soon as it
+      is on-screen (data-inview="true", written by Home's IntersectionObserver)
+      the containment is dropped, so nothing is clipped. */
+@media (min-width: 1024px) {
+  .kz-cv {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 100dvh;
+  }
+  .kz-cv[data-inview="true"] {
+    content-visibility: visible;
+  }
+}
+
+/* 2) Infinite CSS animations (shimmer, float, ping, scan…) stop while their
+      section is off-screen. data-inview is written by Home's IntersectionObserver. */
+[data-home-section][data-inview="false"] *,
+[data-home-section][data-inview="false"] *::before,
+[data-home-section][data-inview="false"] *::after {
+  animation-play-state: paused !important;
+}
+
+/* 3) Performance tiers (set on <html data-perf> by lib/perf.ts).
+      "high" = exactly the current look. */
+:root {
+  --kz-blur-scale: 1;
+}
+:root[data-perf="mid"] {
+  --kz-blur-scale: 0.65;
+}
+:root[data-perf="low"] {
+  --kz-blur-scale: 0.4;
+}
+
+/* OPTIONAL (weak devices only): uncomment to also stop endless decorative loops
+:root[data-perf="low"] .kz-shimmer,
+:root[data-perf="low"] .animate-ping {
+  animation: none;
+}
+*/
